@@ -1,0 +1,21 @@
+{
+  "name": "redux-agg",
+  "version": "1.0.0",
+  "description": "redux 数据流构建工具。",
+  "main": "lib/index.js",
+  "module": "es/index.js", 
+  "types": "types/index.d.ts",
+  "files": [
+    "lib",
+    "es",
+    "types"
+  ],
+  "repository": "https://github.com/zjx0905/redux-agg.git",
+  "author": "zjx0905 <954270063@qq.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.11.0",
+    "redux": "^4.0.5",
+    "typescript": "^4.0.3"
+  }
+}
