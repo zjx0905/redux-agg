@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ES2018",
+    "module": "ESNext",
     "declaration": true,
     "declarationDir": "./types",
     "sourceMap": true,
@@ -12,6 +12,9 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "esModuleInterop": true,
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+    "jsx": "react",
+    "lib": ["dom", "esnext"]
+  },
+  "include": ["./src/**/*"]
 }
