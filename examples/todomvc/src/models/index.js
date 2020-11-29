@@ -1,12 +1,13 @@
 import { createStore } from 'redux';
-import { createAggStore } from 'redux-agg';
-import { todosModel, todosActions } from './todos';
-import {
-  visibilityFilterModel,
-  visibilityFilterActions,
-} from './visibilityFilter';
+import { createAggStore, createActionHelpers } from 'redux-agg';
+import { todosModel } from './todos';
+import { visibilityFilterModel } from './visibilityFilter';
 
-export { todosActions, visibilityFilterActions };
+export const todosActions = createActionHelpers(todosModel);
+
+export const visibilityFilterActions = createActionHelpers(
+  visibilityFilterModel
+);
 
 export const store = createAggStore(createStore)
   .register(todosModel)

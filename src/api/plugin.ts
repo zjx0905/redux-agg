@@ -12,7 +12,7 @@ export interface InstallPlugin<S extends State = State, P = Payload> {
   (plugin: Plugin<S, P>): Store<S, P>;
 }
 
-export function plugin<S extends State = State, P = Payload>(
+export function initPlugin<S extends State = State, P = Payload>(
   store: Store<S, P>
 ): void {
   const cachePlugins = new Set<Plugin<S, P>>();

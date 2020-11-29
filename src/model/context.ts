@@ -1,4 +1,4 @@
-import { Action, Payload } from '../api/action';
+import { Action, ExtraProps, Payload } from '../api/action';
 import { Store } from '../api/store';
 import { State } from '../api/model';
 
@@ -6,12 +6,10 @@ export type Context<SS = any, S extends State = State, P = Payload> = Pick<
   Store<S, P>,
   'getState' | 'dispatch'
 > &
-  Action<P> & {
+  Pick<Action<P>, 'type' | 'payload'> & {
     namespace: string;
     method: string;
-    extraProps: {
-      [extraProps: string]: any;
-    };
+    extraProps: ExtraProps;
     getCurrentState(): SS;
   };
 

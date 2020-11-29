@@ -1,8 +1,11 @@
 import { Action as ReduxAction } from 'redux';
-import { isUndefined } from '../helpers/type';
 import { Model } from './model';
 
 export type Payload = never;
+
+export interface ExtraProps {
+  [extraProps: string]: any;
+}
 
 /**
  * Action 是一个普通对象，用于描述此次操作的意图
@@ -25,22 +28,28 @@ export type Payload = never;
  * }
  * ```
  */
-
 export type Action<P = Payload> = [P] extends [Payload]
   ? ReduxAction<string> & {
-      [extraProps: string]: any;
-    }
+      extraProps?: ExtraProps;
+    } & ExtraProps
   : ReduxAction<string> & {
       payload: P;
-      [extraProps: string]: any;
-    };
+      extraProps?: ExtraProps;
+    } & ExtraProps;
 
 export interface ActionCreator {
-  <P = Payload>(method: string, payload?: Action<P>['payload']): Action<P>;
+  <P = Payload>(
+    method: string,
+    payload?: Action<P>['payload'],
+    extraProps?: ExtraProps
+  ): Action<P>;
 }
 
 export interface ActionHelper {
-  <P = Payload>(payload?: Action<P>['payload']): Action<P>;
+  <P = Payload>(
+    payload?: Action<P>['payload'],
+    extraProps?: ExtraProps
+  ): Action<P>;
 }
 
 export type ActionHelpers<T extends Model> = {
@@ -50,14 +59,13 @@ export type ActionHelpers<T extends Model> = {
 export function createActionCreator(namespace: string): ActionCreator {
   return function createAction<P = Payload>(
     method: string,
-    payload?: Action<P>['payload']
+    payload?: Action<P>['payload'],
+    extraProps?: ExtraProps
   ): Action<P> {
     const action = Object.create(null);
     action.type = `${namespace}/${method}`;
-
-    if (!isUndefined(payload)) {
-      action.payload = payload;
-    }
+    action.payload = payload;
+    action.extraProps = extraProps;
 
     return action;
   };
@@ -74,9 +82,10 @@ export function createActionHelpers<T extends Model>(
   const createAction = createActionCreator(namespace);
   methods.forEach((method) => {
     actionHelpers[method] = function actionHelper<P = Payload>(
-      payload?: Action<P>['payload']
+      payload?: Action<P>['payload'],
+      extraProps?: ExtraProps
     ): Action<P> {
-      return createAction(method, payload);
+      return createAction(method, payload, extraProps);
     };
   });
   return actionHelpers;

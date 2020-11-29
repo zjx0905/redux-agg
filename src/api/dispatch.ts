@@ -1,6 +1,6 @@
 import { isPromise } from '../helpers/type';
 import { createContext } from '../model/context';
-import { tryHitSideEffect } from '../model/effect';
+import { tryHitSideEffects } from '../model/effect';
 import { Action, Payload } from './action';
 import { State } from './model';
 import { Store } from './store';
@@ -10,14 +10,14 @@ export interface Dispatch {
 }
 
 export function createDispatch<S extends State = State>(store: Store<S>): void {
-  const { dispatch: reduxDispatch } = store;
+  const { dispatch: _dispatch } = store;
   store.dispatch = function dispatch<P = Payload>(
     action: Action<P>
   ): Promise<Action<P>> | Action<P> {
     try {
       const context = createContext(store, action);
-      reduxDispatch(context);
-      const promise = tryHitSideEffect(context);
+      _dispatch(context);
+      const promise = tryHitSideEffects(context);
       return isPromise(promise) ? promise.then(() => action) : action;
     } catch (err) {
       console.error(err);

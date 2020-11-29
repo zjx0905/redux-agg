@@ -2,7 +2,6 @@ import { Plugin } from '../api/plugin';
 import { Store } from '../api/store';
 import { defineModel } from '../api/model';
 import { createActionHelpers } from '../api/action';
-import { defineMiddleware } from '../api/middleware';
 
 export function loadingPlugin(namespace = 'loading'): Plugin {
   const loadingModel = defineModel({
@@ -42,13 +41,12 @@ export function loadingPlugin(namespace = 'loading'): Plugin {
     },
   });
   const loadingActions = createActionHelpers(loadingModel);
-  const loadingMiddleware = defineMiddleware(async (context, next) => {
-    context.dispatch(loadingActions.begin(context));
-    await next();
-    context.dispatch(loadingActions.end(context));
-  });
 
   return function loadingPluginFn(store: Store): void {
-    store.register(loadingModel).use(loadingMiddleware);
+    store.register(loadingModel).use(async (context, next) => {
+      context.dispatch(loadingActions.begin(context));
+      await next();
+      context.dispatch(loadingActions.end(context));
+    });
   };
 }

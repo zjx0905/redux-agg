@@ -50,7 +50,7 @@ export function defineModel<SS = any, S extends State = State, P = Payload>(
   return model;
 }
 
-export function register<S extends State = State, P = Payload>(
+export function initModel<S extends State = State, P = Payload>(
   store: Store<S, P>
 ): void {
   store.register = function registerModel<SS = any>(
@@ -65,11 +65,7 @@ export function register<S extends State = State, P = Payload>(
     });
     return store;
   };
-}
 
-export function unregister<S extends State = State, P = Payload>(
-  store: Store<S, P>
-): void {
   store.unregister = function unregisterModel<SS = any>(
     namespaceOrModel: string | Model<SS, S, P>
   ): Store<S, P> {

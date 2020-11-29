@@ -17,7 +17,7 @@ export interface Respond<SS = any, S extends State = State, P = Payload> {
 
 const respondsMap = new Map();
 
-export function reaction<SS = any, S extends State = State, P = Payload>(
+export function updateState<SS = any, S extends State = State, P = Payload>(
   state: S = Object.create(null),
   context: Context<SS, S, P>
 ) {

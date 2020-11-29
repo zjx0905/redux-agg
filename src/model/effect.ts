@@ -1,7 +1,7 @@
 import { isFunction, isUndefined } from '../helpers/type';
 import { Action, Payload } from '../api/action';
 import { Context } from './context';
-import { createMiddlewareStack } from '../api/middleware';
+import { createEffectMiddlewareStack } from '../api/effectMiddleware';
 import { Model, State } from '../api/model';
 
 export interface Effect<SS = any, S extends State = State, P = Payload> {
@@ -22,7 +22,7 @@ export interface SideEffect<SS = any, S extends State = State, P = Payload> {
 
 const sideEffects = new Map();
 
-export function tryHitSideEffect<
+export function tryHitSideEffects<
   SS = any,
   S extends State = State,
   P = Payload
@@ -38,7 +38,7 @@ function asyncPerformer<SS = any, S extends State = State, P = Payload>(
   context: Context<SS, S, P>,
   callback: PerformerCallBack
 ): Promise<void> {
-  return Promise.resolve(createMiddlewareStack(context)).then(
+  return Promise.resolve(createEffectMiddlewareStack(context)).then(
     (middlewareStack) => {
       function middlewareNext() {
         const middleware = middlewareStack.shift();

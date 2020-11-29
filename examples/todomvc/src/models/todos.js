@@ -1,4 +1,4 @@
-import { defineModel, createActionHelpers } from 'redux-agg';
+import { defineModel } from 'redux-agg';
 
 export const todosModel = defineModel({
   namespace: 'todos',
@@ -45,5 +45,3 @@ export const todosModel = defineModel({
     },
   },
 });
-
-export const todosActions = createActionHelpers(todosModel);

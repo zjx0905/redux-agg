@@ -1,4 +1,4 @@
-import { defineModel, createActionHelpers } from 'redux-agg';
+import { defineModel } from 'redux-agg';
 import { SHOW_ALL } from '../constants/TodoFilters';
 
 export const visibilityFilterModel = defineModel({
@@ -10,7 +10,3 @@ export const visibilityFilterModel = defineModel({
     },
   },
 });
-
-export const visibilityFilterActions = createActionHelpers(
-  visibilityFilterModel
-);
