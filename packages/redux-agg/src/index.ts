@@ -14,4 +14,3 @@ export { Model, defineModel } from './api/model';
 export { Plugin } from './api/plugin';
 export { Reducer } from './model/reducer';
 export { Store, createAggStore } from './api/store';
-export { loadingPlugin } from './plugins/loadingPlugin';

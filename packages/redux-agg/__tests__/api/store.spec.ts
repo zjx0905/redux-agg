@@ -6,25 +6,34 @@ describe('store.ts', () => {
     expect(() => (createAggStore as any)()).toThrow();
     const createStore1 = jest.fn();
     try {
-      createAggStore(createStore1);
+      createAggStore({
+        createStore: createStore1,
+      });
     } catch {}
     expect(createStore1).toBeCalled();
     const createStore2 = jest.fn();
     const enhancer = jest.fn((c) => c());
     try {
-      createAggStore(createStore2, enhancer);
+      createAggStore({
+        createStore: createStore2,
+        enhancer,
+      });
     } catch {}
     expect(createStore2).toBeCalled();
     expect(enhancer).toBeCalled();
   });
 
   it('测试初始化状态是否正确', () => {
-    const store = createAggStore(createStore);
+    const store = createAggStore({
+      createStore,
+    });
     expect(store.getState()).toEqual({});
   });
 
   it('测试注册 model 后状态是否正确', () => {
-    const store = createAggStore(createStore);
+    const store = createAggStore({
+      createStore,
+    });
     store.register({
       namespace: 'agg',
       defaultState: 0,
@@ -34,7 +43,9 @@ describe('store.ts', () => {
   });
 
   it('测试注销 model 后状态是否正确', () => {
-    const store = createAggStore(createStore);
+    const store = createAggStore({
+      createStore,
+    });
     store.unregister({
       namespace: 'agg',
       defaultState: 0,
@@ -44,13 +55,17 @@ describe('store.ts', () => {
   });
 
   it('测试 dispatch 错误的 action 不应该终端程序的执行', () => {
-    const store: any = createAggStore(createStore);
+    const store: any = createAggStore({
+      createStore,
+    });
     const action = store.dispatch(0);
     expect(action).toBe(0);
   });
 
   it('测试 render 结果是否正确', () => {
-    const store = createAggStore(createStore);
+    const store = createAggStore({
+      createStore,
+    });
     store.register({
       namespace: 'agg',
       defaultState: 0,
@@ -70,7 +85,9 @@ describe('store.ts', () => {
   });
 
   it('测试 effect 结果是否正确', async () => {
-    const store = createAggStore(createStore);
+    const store = createAggStore({
+      createStore,
+    });
     store.register({
       namespace: 'agg',
       defaultState: 0,
@@ -100,7 +117,9 @@ describe('store.ts', () => {
   });
 
   it('测试当前 model.effect 中触发其他 model.effect 结果是否正确', async () => {
-    const store = createAggStore(createStore);
+    const store = createAggStore({
+      createStore,
+    });
     store
       .register({
         namespace: 'agg1',

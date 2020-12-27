@@ -1,10 +1,7 @@
-import { Plugin } from '../api/plugin';
-import { Store } from '../api/store';
-import { defineModel } from '../api/model';
-import { createActionHelpers } from '../api/action';
+import { Model } from 'redux-agg';
 
-export function loadingPlugin(namespace = 'loading'): Plugin {
-  const loadingModel = defineModel({
+export function createLoadingModel(namespace: string): Model {
+  return {
     namespace,
     defaultState: {
       global: false,
@@ -39,14 +36,5 @@ export function loadingPlugin(namespace = 'loading'): Plugin {
         };
       },
     },
-  });
-  const loadingActions = createActionHelpers(loadingModel);
-
-  return function loadingPluginFn(store: Store): void {
-    store.register(loadingModel).use(async (context, next) => {
-      context.dispatch(loadingActions.begin(context));
-      await next();
-      context.dispatch(loadingActions.end(context));
-    });
   };
 }

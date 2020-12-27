@@ -1,0 +1,27 @@
+{
+  "name": "@redux-agg/loading-plugin",
+  "version": "0.0.5",
+  "description": "@redux-agg/loading-plugin",
+  "keywords": [],
+  "author": "zjx0905 <954270063@qq.com>",
+  "license": "MIT",
+  "main": "lib",
+  "module": "es",
+  "types": "types",
+  "files": [
+    "lib",
+    "es",
+    "types"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zjx0905/redux-agg.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zjx0905/redux-agg/issues"
+  },
+  "homepage": "https://github.com/zjx0905/redux-agg#readme",
+  "dependencies": {
+    "redux-agg": "^0.0.5"
+  }
+}

@@ -1,20 +1,22 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
-    "module": "ESNext",
+    "target": "esnext",
+    "module": "esnext",
     "declaration": true,
-    "declarationDir": "./types",
     "sourceMap": true,
     "removeComments": false,
+    "downlevelIteration": true,
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "moduleResolution": "node",
     "baseUrl": "./",
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "jsx": "react",
-    "lib": ["dom", "esnext"]
+    "skipLibCheck": true
   },
-  "include": ["./src/**/*"]
+  "include": [
+    "./src/**/*",
+    "packages/loading-plugin/src/index.ts",
+    "packages/redux-agg/src/index.ts"
+  ]
 }

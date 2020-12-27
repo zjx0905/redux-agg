@@ -113,7 +113,6 @@ export function initEffectMiddleware<S extends State = State, P = Payload>(
       middlewares.splice(index, 1);
     }
 
-    setEffectMiddlewares(namepace, middlewares);
     return store;
   };
 }
